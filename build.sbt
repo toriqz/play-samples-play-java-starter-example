@@ -4,6 +4,7 @@ lazy val root = (project in file("."))
     name := """play-java-starter-example""",
     version := "1.0-SNAPSHOT",
     scalaVersion := "2.13.6",
+    scalacOptions += "-target:jvm-1.8",
     libraryDependencies ++= Seq(
       guice,
       // Test Database
@@ -17,8 +18,14 @@ lazy val root = (project in file("."))
       "-parameters",
       "-Xlint:unchecked",
       "-Xlint:deprecation",
-      "-Werror"
+      "-Werror",
+      "-source", "1.8", "-target", "1.8"
     ),
     // Make verbose tests
-    testOptions in Test := Seq(Tests.Argument(TestFrameworks.JUnit, "-a", "-v"))
+    testOptions in Test := Seq(Tests.Argument(TestFrameworks.JUnit, "-a", "-v")),
+    // Java project. Don't expect Scala IDE
+    EclipseKeys.projectFlavor := EclipseProjectFlavor.Java,
+
+    // Use .class files instead of generated .scala files for views and routes
+    EclipseKeys.createSrc := EclipseCreateSrc.ValueSet(EclipseCreateSrc.ManagedClasses, EclipseCreateSrc.ManagedResources)
   )

@@ -3,6 +3,7 @@
 *.log
 tmp
 dump
+null
 
 # Eclipse
 .settings
